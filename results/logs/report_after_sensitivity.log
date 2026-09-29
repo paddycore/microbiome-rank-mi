@@ -1,0 +1,21 @@
+  rf    encoding        test_set  auroc     lo     hi  auprc  n_seeds     ties
+spec         clr   AGP-IBD-5fold 0.7231 0.6949 0.7493 0.3512        5      NaN
+spec         clr AGP-IBD-holdout 0.4375 0.3921 0.4866 0.0672        5      NaN
+spec         clr            HMP2 0.5223 0.4306 0.6132 0.8205        5      NaN
+spec         clr      Halfvarson 0.6138 0.5462 0.6816 0.9404        5      NaN
+spec          pa   AGP-IBD-5fold 0.7863 0.7614 0.8098 0.4275        5      NaN
+spec          pa AGP-IBD-holdout 0.4462 0.3904 0.4968 0.0799        5      NaN
+spec          pa            HMP2 0.7278 0.6451 0.8064 0.8874        5      NaN
+spec          pa      Halfvarson 0.8137 0.7609 0.8632 0.9765        5      NaN
+spec          ra   AGP-IBD-5fold 0.7915 0.7682 0.8145 0.4305        5      NaN
+spec          ra AGP-IBD-holdout 0.4925 0.4429 0.5396 0.0924        5      NaN
+spec          ra            HMP2 0.7359 0.6465 0.8153 0.8948        5      NaN
+spec          ra      Halfvarson 0.8181 0.7506 0.8757 0.9745        5      NaN
+spec    rank_raw   AGP-IBD-5fold 0.7690 0.7436 0.7941 0.4122        5 206.3760
+spec    rank_raw AGP-IBD-holdout 0.4459 0.3949 0.4955 0.0743        5 207.9810
+spec    rank_raw            HMP2 0.7055 0.6119 0.7942 0.8811        5  72.1930
+spec    rank_raw      Halfvarson 0.7889 0.7289 0.8411 0.9728        5 178.2220
+spec rank_within   AGP-IBD-5fold 0.7730 0.7466 0.7972 0.4141        5   0.3206
+spec rank_within AGP-IBD-holdout 0.4428 0.3951 0.4912 0.0743        5   0.1570
+spec rank_within            HMP2 0.6845 0.5957 0.7653 0.8774        5   0.0000
+spec rank_within      Halfvarson 0.7760 0.7173 0.8306 0.9702        5   0.0110

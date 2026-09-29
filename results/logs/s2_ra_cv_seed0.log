@@ -1,0 +1,7 @@
+[21:01:54] ra seed=0 cv (canonical)
+[21:02:18]   fold 0: AUROC 0.8108  (19s)
+[21:02:41]   fold 1: AUROC 0.7968  (19s)
+[21:03:04]   fold 2: AUROC 0.7971  (20s)
+[21:03:31]   fold 3: AUROC 0.7934  (24s)
+[21:04:02]   fold 4: AUROC 0.7813  (26s)
+[21:04:05]   AGP 5-fold: pooled AUROC 0.7957 [0.7704, 0.8171]  fold mean 0.7959 ± 0.0094  AUPR 0.4383

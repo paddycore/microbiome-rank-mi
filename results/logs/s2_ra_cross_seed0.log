@@ -1,0 +1,4 @@
+[21:00:53] ra seed=0 cross (canonical)
+[21:01:26]   fit 30.0s
+[21:01:27]   HMP2: AUROC 0.7258 [0.6421, 0.8076]  AUPR 0.8913
+[21:01:28]   Halfvarson: AUROC 0.8181 [0.7496, 0.8757]  AUPR 0.9745

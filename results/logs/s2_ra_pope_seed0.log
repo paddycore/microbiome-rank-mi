@@ -1,0 +1,11 @@
+[21:04:07] ra_pope seed=0 cross (pope_faithful)
+[21:04:40]   fit 32.4s
+[21:04:41]   HMP2: AUROC 0.7422 [0.66, 0.8222]  AUPR 0.8989
+[21:04:43]   Halfvarson: AUROC 0.7907 [0.7242, 0.8491]  AUPR 0.9718
+[21:04:43] ra_pope seed=0 cv (pope_faithful)
+[21:05:09]   fold 0: AUROC 0.8059  (24s)
+[21:05:35]   fold 1: AUROC 0.8027  (23s)
+[21:06:04]   fold 2: AUROC 0.7965  (26s)
+[21:06:26]   fold 3: AUROC 0.7840  (19s)
+[21:06:47]   fold 4: AUROC 0.8021  (19s)
+[21:06:51]   AGP 5-fold: pooled AUROC 0.7983 [0.7731, 0.8197]  fold mean 0.7982 ± 0.0078  AUPR 0.4395

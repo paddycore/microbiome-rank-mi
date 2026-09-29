@@ -1,0 +1,32 @@
+# --- data: too large for git; re-download from Dryad (see README) ---
+data/raw/
+data/processed/*.npy
+
+# --- third-party code downloaded from Zenodo (not ours to redistribute) ---
+reference_code/
+
+# --- environment ---
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- LaTeX build files (keep .tex and .pdf) ---
+reports/report2/*.aux
+reports/report2/*.fdb_latexmk
+reports/report2/*.fls
+reports/report2/*.log
+reports/report2/*.out
+reports/report2/*.xdv
+reports/report2/build.log
+
+# --- OS ---
+.DS_Store
+
+# hands-on notebooks: kept local only
+handson/
+results/logs/handson_solutions_run.log
+
+# kept local only
+reports/
+docs/

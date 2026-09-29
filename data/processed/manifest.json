@@ -1,0 +1,53 @@
+{
+  "source": "Dryad doi:10.5061/dryad.tb2rbp08p v9 (2025-02-20), microbiomedata.zip sha256 8c4e2414...97bd",
+  "vocab": {
+    "size": 26726,
+    "file": "vocab.txt",
+    "definition": "Pope/Tataru AGP vocabulary; column j = vocab ID j = FASTA header embed{j+1} in seqs_.07_embed.fasta (embed26727 = <unk>, excluded)"
+  },
+  "matrix_values": "raw read counts (float32); relative abundance is derived in the encoding layer",
+  "duplicate_ids": "summed within sample (canonical); overwritten last-wins (pope_faithful)",
+  "cohorts": {
+    "agp_ibd": {
+      "n_samples": 8571,
+      "n_pos": 435,
+      "n_neg": 8136,
+      "pos_frac": 0.0508,
+      "sparsity": 0.99033,
+      "n_distinct_vocab_ids": 23422,
+      "read_depth_median": 21667.0,
+      "entries_merged_as_duplicates": 0,
+      "pope_faithful_taxon0_nonzero_samples": 1
+    },
+    "hmp2": {
+      "n_samples": 197,
+      "n_pos": 155,
+      "n_neg": 42,
+      "pos_frac": 0.7868,
+      "sparsity": 0.99472,
+      "n_distinct_vocab_ids": 2611,
+      "read_depth_median": 42093.0,
+      "entries_merged_as_duplicates": 0,
+      "pope_faithful_taxon0_nonzero_samples": 0,
+      "asv_overlap_frac_idmatch": 0.9613,
+      "asv_overlap_read_weighted_idmatch": 0.9998,
+      "asv_overlap_frac_pope_blast": 0.51
+    },
+    "hv": {
+      "n_samples": 564,
+      "n_pos": 510,
+      "n_neg": 54,
+      "pos_frac": 0.9043,
+      "sparsity": 0.98905,
+      "n_distinct_vocab_ids": 4530,
+      "read_depth_median": 212847.0,
+      "entries_merged_as_duplicates": 62260,
+      "pope_faithful_taxon0_nonzero_samples": 0,
+      "asv_overlap_frac_idmatch": 0.9826,
+      "asv_overlap_read_weighted_idmatch": 0.9992,
+      "asv_overlap_frac_pope_blast": 0.34
+    }
+  },
+  "asv_overlap_note": "asv_overlap_frac_idmatch = fraction of the cohort's distinct vocab IDs that occur in AGP-IBD. It is near 1 by construction because the curators mapped HMP2/HV ASVs onto the AGP vocabulary and dropped non-matching ones; it does not measure shift. Fig 2 uses asv_overlap_frac_pope_blast (Pope et al. 2025 \u00a73.2, BLAST >=99% id, e-value 1e-20, on raw ASVs) - their measurement, not ours (decision at S1, 2026-09-27).",
+  "subject_id": "none available; AGP-IBD 5-fold CV is stratified by label but NOT grouped by patient"
+}
