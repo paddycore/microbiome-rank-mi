@@ -1,0 +1,9 @@
+bag,class_weight,test_set,auroc,auroc_ci_lo,auroc_ci_hi,auprc,n_train,n_test,timestamp
+unweighted,balanced,HMP2,0.5805,0.4845,0.6704,0.8317,8571,197,2026-10-21T02:18:26
+unweighted,balanced,Halfvarson,0.3981,0.3354,0.4639,0.8983,8571,564,2026-10-21T02:18:26
+unweighted,None,HMP2,0.5513,0.4593,0.641,0.824,8571,197,2026-10-21T02:18:26
+unweighted,None,Halfvarson,0.4249,0.3586,0.4953,0.9037,8571,564,2026-10-21T02:18:26
+weighted,balanced,HMP2,0.551,0.4572,0.6513,0.8112,8571,197,2026-10-21T02:18:26
+weighted,balanced,Halfvarson,0.6511,0.5783,0.7266,0.9488,8571,564,2026-10-21T02:18:26
+weighted,None,HMP2,0.5129,0.432,0.6043,0.7971,8571,197,2026-10-21T02:18:26
+weighted,None,Halfvarson,0.6931,0.6271,0.7614,0.9551,8571,564,2026-10-21T02:18:26
