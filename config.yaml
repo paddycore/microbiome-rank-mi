@@ -1,0 +1,29 @@
+# Experiment parameters. Phase 0 code (src/evaluate.py, src/report.py) still keeps its own constants;
+# new code reads from here.
+
+paths:
+  cohorts_dir: data/raw/microbiomedata/microbiomedata
+  vocab_embeddings: data/raw/vocab_embeddings.npy
+  ensemble_dir: data/raw/ensemble/ensemble            # Pope's 10 fine-tuned IBD classifiers (run1..run10)
+  pretrained_dir: data/raw/pretrainedmodels/pretrainedmodels
+  features_dir: data/processed/features               # cached encoder features (E4b)
+
+# Pope's top-512 coordinate files: (n, 512, 2) = [vocab id, read count], already sorted by count
+cohorts:
+  agp_ibd: {samples: total_IBD_512.npy, labels: total_IBD_label.npy, name: AGP-IBD}
+  hmp2:    {samples: schirmer_IBD_512_otu.npy, labels: schirmer_IBD_labels.npy, name: HMP2}
+  hv:      {samples: halfvarson_512_otu.npy, labels: halfvarson_IBD_labels.npy, name: Halfvarson}
+
+e4:
+  test_cohorts: [hmp2, hv]
+  pope_auroc: {hmp2: 0.682, hv: 0.805}   # Pope et al. 2025, transformer ensemble, cross-study
+  gate_tolerance: 0.05                   # S4-0: |ours - Pope| <= this, per cohort
+  pope_test_dropout: 0.1                 # finetune_discriminator/dataset.py drops 10% of tokens even at test time
+  dropout_repeats: 10
+  n_repeats: 20                          # random permutations per shuffle condition
+  top_k: [16, 32, 64, 128, 256, 512]
+  seeds: [0, 1, 2, 3, 4]                 # for trained heads (E4b, E4c)
+  n_boot: 1000
+  batch_size: 64
+  device: cpu                            # cpu: 3 s vs 9 s on mps for 197 samples; also deterministic
+  encoder_checkpoint: 5head5layer_epoch120_disc   # the ensemble was fine-tuned from this one

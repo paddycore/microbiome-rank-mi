@@ -1,0 +1,37 @@
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 14194.71it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 15366.23it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 34563.22it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 33604.65it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 32991.76it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 24501.33it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 12681.30it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 30282.58it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 22916.94it/s]
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 38156.72it/s]
+sorted        HMP2        r0  AUROC 0.6856 [0.582, 0.774]  delta +0.0000
+sorted        Halfvarson  r0  AUROC 0.8297 [0.769, 0.886]  delta +0.0000
+pope_dropout  HMP2        r0  AUROC 0.6822 [0.581, 0.770]  delta -0.0034
+pope_dropout  HMP2        r1  AUROC 0.6759 [0.577, 0.765]  delta -0.0097
+pope_dropout  HMP2        r2  AUROC 0.6862 [0.590, 0.781]  delta +0.0006
+pope_dropout  HMP2        r3  AUROC 0.6641 [0.564, 0.760]  delta -0.0215
+pope_dropout  HMP2        r4  AUROC 0.6919 [0.592, 0.779]  delta +0.0063
+pope_dropout  HMP2        r5  AUROC 0.6774 [0.571, 0.774]  delta -0.0081
+pope_dropout  HMP2        r6  AUROC 0.6756 [0.570, 0.769]  delta -0.0100
+pope_dropout  HMP2        r7  AUROC 0.6711 [0.578, 0.769]  delta -0.0144
+pope_dropout  HMP2        r8  AUROC 0.6780 [0.578, 0.775]  delta -0.0075
+pope_dropout  HMP2        r9  AUROC 0.6754 [0.577, 0.784]  delta -0.0101
+pope_dropout  Halfvarson  r0  AUROC 0.8111 [0.750, 0.866]  delta -0.0187
+pope_dropout  Halfvarson  r1  AUROC 0.8230 [0.763, 0.881]  delta -0.0067
+pope_dropout  Halfvarson  r2  AUROC 0.8219 [0.764, 0.876]  delta -0.0079
+pope_dropout  Halfvarson  r3  AUROC 0.8304 [0.775, 0.882]  delta +0.0007
+pope_dropout  Halfvarson  r4  AUROC 0.8285 [0.768, 0.884]  delta -0.0012
+pope_dropout  Halfvarson  r5  AUROC 0.8253 [0.768, 0.878]  delta -0.0045
+pope_dropout  Halfvarson  r6  AUROC 0.8290 [0.771, 0.880]  delta -0.0007
+pope_dropout  Halfvarson  r7  AUROC 0.8266 [0.763, 0.880]  delta -0.0032
+pope_dropout  Halfvarson  r8  AUROC 0.8274 [0.768, 0.881]  delta -0.0024
+pope_dropout  Halfvarson  r9  AUROC 0.8210 [0.759, 0.878]  delta -0.0088
+
+S4-0 reproduction gate (tolerance 0.05)
+cohort        Pope           sorted  pope_dropout (mean of reps)  per-model mean±sd  verdict
+HMP2         0.682  0.6856 [0.582, 0.7741]     0.6778 (sd 0.0073, n=10)    0.6903 ± 0.0383  PASS
+Halfvarson   0.805  0.8297 [0.7692, 0.8859]     0.8244 (sd 0.0053, n=10)    0.8107 ± 0.0403  PASS
