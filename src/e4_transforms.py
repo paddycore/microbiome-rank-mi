@@ -9,11 +9,6 @@ def shuffle_tokens(ids, rng):
     """
     out = ids.copy()
 
-    if out.ndim == 1:
-        n_taxa = (out[1:] != PAD).sum()
-        out[1:1 + n_taxa] = rng.permutation(out[1:1 + n_taxa])
-        return out
-
     for i in range(len(out)):
         n_taxa = (out[i, 1 : ] != PAD).sum()
         out[i,1 : 1 + n_taxa] = rng.permutation(out[i,1 : 1 + n_taxa])
@@ -41,13 +36,9 @@ def shuffle_within_ties(ids, counts, rng):
 
             start = end
 
-    if out.ndim == 1 : 
-        process_row(out, counts)
+    for i in range(len(out)):
+        process_row(out[i], counts[i])
 
-    else :
-        for i in range(len(out)):
-            process_row(out[i], counts[i])
-    
     return out
 
 
@@ -56,11 +47,6 @@ def reverse_order(ids):
 
     """
     out = ids.copy()
-
-    if out.ndim == 1:
-        n_taxa = (out[1:] != PAD).sum()
-        out[1:1 + n_taxa] = out[1:1 + n_taxa][::-1]
-        return out
 
     for i in range(len(out)):
         n_taxa = (out[i, 1 : ] != PAD).sum()
@@ -76,3 +62,20 @@ def top_k(ids, k):
     out[... , k +1 : ] = PAD
     return out
 
+
+
+def random_k(ids, k, rng):
+    """E4d control: keep CLS and k taxa chosen AT RANDOM (not the k most abundant); every other taxon -> PAD.
+
+    """
+    out = ids.copy()
+    for i in range(len(out)):
+        n_taxa = (out[i, 1 : ] != PAD).sum()
+        if n_taxa > k:
+            chosen_idx = rng.choice(n_taxa, size=k, replace=False)
+            chosen_idx = np.sort(chosen_idx)
+            kept_idx = out[i,1 : 1 + n_taxa][chosen_idx]
+            out[i,1 : 1 + k] = kept_idx
+            out[i,1 + k :] = PAD
+
+    return out
