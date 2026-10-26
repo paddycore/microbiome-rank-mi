@@ -12,11 +12,12 @@ Conditions
   ties          random order within tied counts only (E4a)      -> e4_transforms.shuffle_within_ties
   reverse       ascending instead of descending (E4a)           -> e4_transforms.reverse_order
   top<K>        keep the K most abundant taxa (E4d)             -> e4_transforms.top_k
+  rand<K>       keep K taxa chosen at random (E4d control)      -> e4_transforms.random_k
 
 Usage:
   python src/e4_harness.py --gate                      # STOP POINT S4-0
   python src/e4_harness.py --conditions shuffle ties reverse
-  python src/e4_harness.py --conditions topk
+  python src/e4_harness.py --conditions topk randk
 """
 import argparse
 import csv
@@ -52,6 +53,7 @@ CONDITIONS = {
     "ties": (E4["n_repeats"], lambda ids, c, rng: T().shuffle_within_ties(ids, c, rng)),
     "reverse": (1, lambda ids, c, rng: T().reverse_order(ids)),
     **{f"top{k}": (1, lambda ids, c, rng, k=k: T().top_k(ids, k)) for k in E4["top_k"]},
+    **{f"rand{k}": (E4["random_k_repeats"], lambda ids, c, rng, k=k: T().random_k(ids, k, rng)) for k in E4["random_k"]},
 }
 
 
@@ -134,6 +136,8 @@ def main():
     names = (["sorted", "pope_dropout"] if args.gate else []) + args.conditions
     if "topk" in names:
         names = [n for n in names if n != "topk"] + [f"top{k}" for k in E4["top_k"]]
+    if "randk" in names:
+        names = [n for n in names if n != "randk"] + [f"rand{k}" for k in E4["random_k"]]
     if "sorted" not in names and not (PRED_DIR / "e4_sorted_r0_hmp2.npz").exists():
         names = ["sorted"] + names  # every delta needs the baseline
 

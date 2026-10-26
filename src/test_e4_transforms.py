@@ -119,3 +119,34 @@ def test_top_k_keeps_shape_and_input():
 def test_top_k_at_full_width_is_identity():
     assert (T.top_k(IDS, IDS.shape[1] - 1) == IDS).all()
     assert (T.top_k(IDS, 512) == IDS).all()
+
+
+# --- random_k (E4d control) ------------------------------------------------------------------------------------
+
+def test_random_k_keeps_k_taxa_in_original_order():
+    for seed in range(10):
+        out = T.random_k(LONG, 8, rng(seed))
+        assert out.shape == LONG.shape and out[0, 0] == CLS
+        kept = real(out[0])
+        assert len(kept) == 8 and set(kept) <= set(real(LONG[0]))
+        assert (np.diff(kept) > 0).all()            # LONG's taxa are increasing ids: original order kept
+        assert (out[0, 9:] == PAD).all()            # packed right after CLS, padding after
+
+
+def test_random_k_is_not_top_k_and_varies_with_seed():
+    picks = {tuple(real(T.random_k(LONG, 8, rng(s))[0])) for s in range(10)}
+    assert len(picks) > 1
+    assert picks != {tuple(real(T.top_k(LONG, 8)[0]))}
+
+
+def test_random_k_same_seed_same_result_and_input_untouched():
+    before = LONG.copy()
+    assert (T.random_k(LONG, 8, rng(4)) == T.random_k(LONG, 8, rng(4))).all()
+    assert (LONG == before).all()
+
+
+def test_random_k_short_rows_unchanged():
+    out = T.random_k(IDS, 2, rng())                 # rows with 5, 2 and 1 taxa
+    assert len(real(out[0])) == 2 and set(real(out[0])) <= {10, 11, 12, 13, 14}
+    assert (out[1] == IDS[1]).all() and (out[2] == IDS[2]).all()
+    assert (T.random_k(IDS, 512, rng()) == IDS).all()

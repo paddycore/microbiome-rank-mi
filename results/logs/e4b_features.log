@@ -1,0 +1,19 @@
+
+agp_ibd  sorted   seed=None  n=8571  99s -> e4b_agp_ibd_sorted.npz
+agp_ibd  shuffled seed=0  n=8571  129s -> e4b_agp_ibd_shuffled_s0.npz
+agp_ibd  shuffled seed=1  n=8571  131s -> e4b_agp_ibd_shuffled_s1.npz
+agp_ibd  shuffled seed=2  n=8571  116s -> e4b_agp_ibd_shuffled_s2.npz
+agp_ibd  shuffled seed=3  n=8571  102s -> e4b_agp_ibd_shuffled_s3.npz
+agp_ibd  shuffled seed=4  n=8571  103s -> e4b_agp_ibd_shuffled_s4.npz
+hmp2     sorted   seed=None  n=197  2s -> e4b_hmp2_sorted.npz
+hmp2     shuffled seed=0  n=197  2s -> e4b_hmp2_shuffled_s0.npz
+hmp2     shuffled seed=1  n=197  3s -> e4b_hmp2_shuffled_s1.npz
+hmp2     shuffled seed=2  n=197  3s -> e4b_hmp2_shuffled_s2.npz
+hmp2     shuffled seed=3  n=197  3s -> e4b_hmp2_shuffled_s3.npz
+hmp2     shuffled seed=4  n=197  3s -> e4b_hmp2_shuffled_s4.npz
+hv       sorted   seed=None  n=564  7s -> e4b_hv_sorted.npz
+hv       shuffled seed=0  n=564  7s -> e4b_hv_shuffled_s0.npz
+hv       shuffled seed=1  n=564  7s -> e4b_hv_shuffled_s1.npz
+hv       shuffled seed=2  n=564  7s -> e4b_hv_shuffled_s2.npz
+hv       shuffled seed=3  n=564  7s -> e4b_hv_shuffled_s3.npz
+hv       shuffled seed=4  n=564  8s -> e4b_hv_shuffled_s4.npz

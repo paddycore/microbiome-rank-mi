@@ -1,6 +1,7 @@
 # --- data: too large for git; re-download from Dryad (see README) ---
 data/raw/
 data/processed/*.npy
+data/processed/features/
 
 # --- third-party code downloaded from Zenodo (not ours to redistribute) ---
 reference_code/

@@ -1,0 +1,5 @@
+feature,class_weight,auroc_agp_5fold
+cls,balanced,0.7584
+cls,None,0.7525
+mean,balanced,0.768
+mean,None,0.7694

@@ -1,8 +1,10 @@
 """E4 outputs: figures and results/e4_summary.md from results/e4.csv, results/preds/e4_*.npz, results/e4c.csv.
 
-  figures/fig_e4_order_budget.png   A: ΔAUROC vs Pope's order per perturbation (E4a), B: AUROC vs K (E4d)
+  figures/fig_e4_order_budget.png   A: ΔAUROC vs Pope's order per perturbation (E4a), B: AUROC vs K, top-K and
+                                    random-K (E4d)
   figures/fig_e4c_baselines.png     order-free baselines (E4c) next to the transformer and Phase 0 RF
-  results/e4_summary.md             every number in the figures, plus the S4-0 gate
+  results/e4b_indomain.csv          E4b diagnostic: the same frozen features, 5-fold CV inside AGP-IBD (leaky)
+  results/e4_summary.md             every number in the figures, the E4b 2x2 (results/e4b.csv), the S4-0 gate
 
 ΔAUROC is paired: on each of n_boot shared resamples of the test samples, the condition's AUROC (averaged over its
 repeats, e.g. 20 random permutations) minus the AUROC of Pope's order. CIs ignore repeated samples per patient
@@ -45,8 +47,8 @@ def ensemble_probs(condition, cohort):
     return out
 
 
-def paired_delta(condition, cohort):
-    base = ensemble_probs("sorted", cohort)
+def paired_delta(condition, cohort, base_condition="sorted"):
+    base = ensemble_probs(base_condition, cohort)
     reps = ensemble_probs(condition, cohort)
     if not base or not reps:
         return None
@@ -68,6 +70,9 @@ def summarise(df):
                  tokens=g.mean_tokens.mean())
         if cond != "sorted":
             r.update(paired_delta(cond, COHORTS[test]) or {})
+        if cond.startswith("rand"):  # random-K vs top-K at the same K: does choosing the most abundant matter?
+            d = paired_delta(cond, COHORTS[test], base_condition="top" + cond[4:]) or {}
+            r.update({f"{k}_vs_top": v for k, v in d.items() if k != "n_repeats"})
         rows.append(r)
     return pd.DataFrame(rows)
 
@@ -105,25 +110,33 @@ def fig_order_budget(s, path):
 
     p0.style(b)
     for test, c in COHORTS.items():
-        r = s[s.condition.str.match(r"top\d+$") & (s.test_set == test)].copy()
-        if r.empty:
-            continue
-        r["k"] = r.condition.str[3:].astype(int)
-        r = r.sort_values("k")
-        b.fill_between(r.k, r.ci_lo, r.ci_hi, color=COLORS[test], alpha=0.10, lw=0)
-        b.plot(r.k, r.auroc, color=COLORS[test], lw=2, zorder=2)
-        b.scatter(r.k, r.auroc, s=56, color=COLORS[test], edgecolor=SURFACE, linewidth=2, zorder=3)
+        for prefix, ls, band in [("top", "-", True), ("rand", (0, (4, 2)), False)]:
+            r = s[s.condition.str.match(prefix + r"\d+$") & (s.test_set == test)].copy()
+            if r.empty:
+                continue
+            r["k"] = r.condition.str[len(prefix):].astype(int)
+            r = r.sort_values("k")
+            if band:
+                b.fill_between(r.k, r.ci_lo, r.ci_hi, color=COLORS[test], alpha=0.10, lw=0)
+            b.plot(r.k, r.auroc, color=COLORS[test], lw=2, ls=ls, zorder=2)
+            b.scatter(r.k, r.auroc, s=56 if band else 40, color=COLORS[test] if band else SURFACE,
+                      edgecolor=SURFACE if band else COLORS[test], linewidth=2, zorder=3)
         n_tok = s[(s.condition == "sorted") & (s.test_set == test)].tokens.iloc[0]
         b.axvline(n_tok, color=COLORS[test], lw=1, ls=(0, (1, 2)), zorder=1)
     b.axhline(0.5, color=INK2, lw=1, ls=(0, (4, 3)), zorder=1)
     b.set_xscale("log", base=2)
     b.set_xticks(E4["top_k"], [str(k) for k in E4["top_k"]], color=INK)
-    b.set_xlabel("K = most abundant taxa kept (log scale)", color=INK2, fontsize=9)
+    b.set_xlabel("K = taxa kept per sample (log scale)", color=INK2, fontsize=9)
     b.set_ylabel("AUROC (ensemble)", color=INK)
     b.set_title("B  Token budget (E4d)", loc="left", fontsize=10.5, color=INK, fontweight="bold")
+    if s.condition.str.startswith("rand").any():
+        b.legend(handles=[Line2D([], [], color=INK2, lw=2, label="K most abundant"),
+                          Line2D([], [], color=INK2, lw=2, ls=(0, (4, 2)), marker="o", ms=6, mfc=SURFACE,
+                                 label=f"K at random (mean of {E4['random_k_repeats']})")],
+                 frameon=False, fontsize=8.5, labelcolor=INK, loc="lower right", bbox_to_anchor=(1.0, 0.06))
 
     note = ("Pope et al.'s 10-model fine-tuned ensemble, trained on AGP-IBD, tested on HMP2 (n=197) and Halfvarson "
-            "(n=564). A: shuffles averaged over 20 random permutations. B: band = bootstrap 95% CI; dotted vertical = "
+            "(n=564). A: shuffles averaged over 20 random permutations. B: band = bootstrap 95% CI of top-K; dotted vertical = "
             "mean taxa per sample in that cohort (K above it changes few samples). CIs ignore repeated samples per "
             "patient.")
     fig.text(0.01, 0.01, textwrap.fill(note, 170), fontsize=7.5, color=INK2)
@@ -221,6 +234,19 @@ def summary_md(s, bl, path):
             r = r.iloc[0]
             L.append(f"| {k} | {test} | {r.tokens:.0f} | {r.auroc:.3f} [{r.ci_lo:.3f}, {r.ci_hi:.3f}] | "
                      f"{sd(r.get('delta'))} [{sd(r.get('lo'))}, {sd(r.get('hi'))}] | {verdict(r)} |")
+    if s.condition.str.startswith("rand").any():
+        L += [f"\n### Control: K taxa chosen at random ({E4['random_k_repeats']} draws per K, kept in Pope's order)\n",
+              "| K | Test set | AUROC (mean) | Range over draws | ΔAUROC vs all taxa [95% CI] | "
+              "ΔAUROC vs top-K at same K [95% CI] |", "|---|---|---|---|---|---|"]
+        for k in E4["random_k"]:
+            for test in COLORS:
+                r = s[(s.condition == f"rand{k}") & (s.test_set == test)]
+                if r.empty:
+                    continue
+                r = r.iloc[0]
+                L.append(f"| {k} | {test} | {r.auroc:.3f} | {r.auroc_min:.3f}–{r.auroc_max:.3f} | "
+                         f"{sd(r.get('delta'))} [{sd(r.get('lo'))}, {sd(r.get('hi'))}] | "
+                         f"{sd(r.get('delta_vs_top'))} [{sd(r.get('lo_vs_top'))}, {sd(r.get('hi_vs_top'))}] |")
     L += ["\n## E4c: order-free baselines (absolute AUROC, not paired)\n", "| Model | HMP2 | Halfvarson |", "|---|---|---|"]
     for m in dict.fromkeys(bl.model):
         cells = []
@@ -232,7 +258,51 @@ def summary_md(s, bl, path):
         L.append("\n_Bag-of-embeddings rows appear after `python src/e4c_bag.py` is run._")
     L.append("\nPhase 0 RF rows: spec RF (`class_weight='balanced'`), median over 5 seeds, full 1,897-column input "
              "(not the top-512 input the transformer sees).")
+    L += e4b_md()
     path.write_text("\n".join(L) + "\n")
+
+
+def e4b_indomain():
+    """Diagnostic for E4b: the same frozen features and head, 5-fold stratified CV inside AGP-IBD. Not grouped
+    by patient (no IDs), so this is the leaky upper bound of Phase 0, not a clean in-domain number."""
+    path = RESULTS / "e4b_indomain.csv"
+    if path.exists():
+        return pd.read_csv(path, keep_default_na=False)
+    from sklearn.model_selection import StratifiedKFold
+    from e4b_features import load_features
+    from e4b_head import CLASS_WEIGHTS, FEATURES, fit_head
+    cls, mean, y = load_features("agp_ibd", "sorted")
+    rows = []
+    for feature, X in zip(FEATURES, (cls, mean)):
+        for cw in CLASS_WEIGHTS:
+            p = np.zeros(len(y))
+            for tr, te in StratifiedKFold(5, shuffle=True, random_state=0).split(X, y):
+                p[te] = fit_head(X[tr], y[tr], cw).predict_proba(X[te])[:, 1]
+            rows.append(dict(feature=feature, class_weight=str(cw), auroc_agp_5fold=round(roc_auc_score(y, p), 4)))
+    out = pd.DataFrame(rows)
+    out.to_csv(path, index=False)
+    return out
+
+
+def e4b_md():
+    if not (RESULTS / "e4b.csv").exists():
+        return []
+    d = pd.read_csv(RESULTS / "e4b.csv", keep_default_na=False)
+    ind = e4b_indomain().set_index(["feature", "class_weight"]).auroc_agp_5fold
+    L = ["\n## E4b: head trained on frozen-encoder features, train order x test order\n",
+         f"Encoder `{E4['encoder_checkpoint']}` frozen; logistic regression head on AGP-IBD; shuffled orders: mean over "
+         f"seeds {E4['e4b_shuffle_seeds']} (range in brackets). Last column: the same features and head under 5-fold "
+         "CV inside AGP-IBD (not patient-grouped, so a leaky upper bound).\n",
+         "| Feature | class_weight | Test set | sorted → sorted | sorted → shuffled | shuffled → sorted | "
+         "shuffled → shuffled | AGP 5-fold (leaky) |", "|---|---|---|---|---|---|---|---|"]
+    for (feature, cw), g in d.groupby(["feature", "class_weight"], sort=False):
+        for test in COLORS:
+            cells = []
+            for tr, te in [("sorted", "sorted"), ("sorted", "shuffled"), ("shuffled", "sorted"), ("shuffled", "shuffled")]:
+                a = g[(g.test_set == test) & (g.train_order == tr) & (g.test_order == te)].auroc
+                cells.append(f"{a.mean():.3f}" if len(a) == 1 else f"{a.mean():.3f} [{a.min():.3f}–{a.max():.3f}]")
+            L.append(f"| {feature} | {cw} | {test} | " + " | ".join(cells) + f" | {ind[(feature, cw)]:.3f} |")
+    return L
 
 
 def main():

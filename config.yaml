@@ -22,6 +22,9 @@ e4:
   dropout_repeats: 10
   n_repeats: 20                          # random permutations per shuffle condition
   top_k: [16, 32, 64, 128, 256, 512]
+  random_k: [16, 32, 64, 128, 256]       # E4d control: K taxa chosen at random (512 would keep every sample whole)
+  random_k_repeats: 5
+  e4b_shuffle_seeds: [0, 1, 2, 3, 4]     # E4b: one random order per sample per seed, for train and test cohorts
   seeds: [0, 1, 2, 3, 4]                 # for trained heads (E4b, E4c)
   n_boot: 1000
   batch_size: 64
