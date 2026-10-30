@@ -30,3 +30,12 @@ e4:
   batch_size: 64
   device: cpu                            # cpu: 3 s vs 9 s on mps for 197 samples; also deterministic
   encoder_checkpoint: 5head5layer_epoch120_disc   # the ensemble was fine-tuned from this one
+
+e5:
+  cohorts: [agp_ibd, hmp2, hv]           # the probe's classes for "which cohort"
+  untrained_checkpoint: 5head5layer_epoch0_disc   # random-embedding control (Bendidi et al. 2024)
+  C: [0.01, 0.1, 1.0]                    # probe capacity sweep (guide: report all three)
+  C_main: 0.1
+  n_folds: 5
+  agp_subsample: 2000                    # cohort probe: AGP rows kept (all HMP2 + Halfvarson), to keep fits fast
+  seed: 0

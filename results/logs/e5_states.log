@@ -1,0 +1,38 @@
+ens1    agp_ibd  n= 8571   140s
+ens1    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens1    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens2    agp_ibd  n= 8571   154s
+ens2    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens2    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens3    agp_ibd  n= 8571   152s
+ens3    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens3    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens4    agp_ibd  n= 8571   129s
+ens4    hmp2     n=  197     3s  S5-0 max |P - E4| = 2.98e-08
+ens4    hv       n=  564    11s  S5-0 max |P - E4| = 0.00e+00
+ens5    agp_ibd  n= 8571   121s
+ens5    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens5    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens6    agp_ibd  n= 8571   119s
+ens6    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens6    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens7    agp_ibd  n= 8571   117s
+ens7    hmp2     n=  197     2s  S5-0 max |P - E4| = 0.00e+00
+ens7    hv       n=  564     6s  S5-0 max |P - E4| = 0.00e+00
+ens8    agp_ibd  n= 8571   117s
+ens8    hmp2     n=  197     2s  S5-0 max |P - E4| = 0.00e+00
+ens8    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens9    agp_ibd  n= 8571   117s
+ens9    hmp2     n=  197     3s  S5-0 max |P - E4| = 0.00e+00
+ens9    hv       n=  564     7s  S5-0 max |P - E4| = 0.00e+00
+ens10   agp_ibd  n= 8571   124s
+ens10   hmp2     n=  197     2s  S5-0 max |P - E4| = 5.96e-08
+ens10   hv       n=  564     6s  S5-0 max |P - E4| = 0.00e+00
+
+pre120  agp_ibd  n= 8571   122s
+pre120  hmp2     n=  197     3s
+pre120  hv       n=  564     7s
+
+pre0    agp_ibd  n= 8571   143s
+pre0    hmp2     n=  197     2s
+pre0    hv       n=  564     7s

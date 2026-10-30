@@ -110,6 +110,22 @@ def predict_ensemble(models, ids, table):
 
 
 @torch.no_grad()
+def all_layer_features(body, ids, table):
+    """[CLS] vector and mean over non-padding tokens from EVERY hidden state: (n, n_layers + 1, 200) each.
+
+    `body` is an ElectraModel (a pretrained checkpoint, or `.electra` of a fine-tuned classifier). Index 0 is the
+    encoder input (embeddings after embeddings_project), 1..5 the encoder layers. Returned as float32.
+    """
+    cls, mean = [], []
+    for x, m in _batches(ids, table):
+        hs = torch.stack(body(inputs_embeds=x, attention_mask=m, output_hidden_states=True).hidden_states, 1)
+        w = m[:, None, :, None].float()
+        cls.append(hs[:, :, 0].cpu())
+        mean.append(((hs * w).sum(2) / w.sum(2)).cpu())
+    return torch.cat(cls).numpy(), torch.cat(mean).numpy()
+
+
+@torch.no_grad()
 def encoder_features(encoder, ids, table, layer=-1):
     """CLS vector and mean over non-padding tokens from one hidden layer: (n, 200) each."""
     cls, mean = [], []
