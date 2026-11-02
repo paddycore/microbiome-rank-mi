@@ -39,3 +39,23 @@ e5:
   n_folds: 5
   agp_subsample: 2000                    # cohort probe: AGP rows kept (all HMP2 + Halfvarson), to keep fits fast
   seed: 0
+
+e5b:
+  layer: 5                               # hidden state Pope's head reads ([CLS] of the last encoder layer)
+  control_models: [pre120, pre0]         # the same heads on bodies that never met Pope's head
+  seeds: [0, 1, 2, 3, 4]                 # per model: init, dropout, batch order
+  epochs: 50                             # epoch sweep (the shipped models stopped after 1)
+  checkpoints: [0, 1, 2, 3, 4, 5, 7, 10, 15, 20, 30, 40, 50]   # epochs scored; 0 = untrained head
+  ci_epochs: [1, 50]                     # ensemble rows that get a bootstrap CI
+  holdout_frac: 0.2                      # AGP-IBD in-domain hold-out (patient leakage: an upper bound)
+  split_seed: 0                          # the same 80/20 for every model, seed and config
+  C: [1.0e-4, 1.0e-3, 1.0e-2, 1.0e-1, 1.0, 1.0e+1, 1.0e+2]    # LR sweep (HB2), each with and without a scaler (HB3)
+  pope:                                  # finetune_discriminator/ + the shipped checkpoints' config.json
+    kind: mlp                            # ElectraClassificationHead
+    loss: mse                            # MSE between softmax[:, 1] and the label
+    balance: sampler                     # weighted sampler, with replacement
+    init_std: 0.02                       # HF initializer_range: the pretrained checkpoints carry no classifier weights
+    dropout: 0.2
+    lr: 0.01
+    momentum: 0.9
+    batch_size: 32

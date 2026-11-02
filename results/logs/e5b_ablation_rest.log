@@ -1,0 +1,9 @@
+[Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=4)]: Done  10 tasks      | elapsed:   25.3s
+[Parallel(n_jobs=4)]: Done  60 out of  60 | elapsed:  1.3min finished
+no_dropout: 2535 rows -> /Users/nonthapatsriboonruang/microbiome-rank-mi/results/e5b.csv  (118s so far)
+[Parallel(n_jobs=4)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=4)]: Done  10 tasks      | elapsed:   16.5s
+[Parallel(n_jobs=4)]: Done  60 out of  60 | elapsed:  1.6min finished
+default_init: 2535 rows -> /Users/nonthapatsriboonruang/microbiome-rank-mi/results/e5b.csv  (259s so far)
+done in 259s
