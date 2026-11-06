@@ -59,3 +59,9 @@ e5b:
     lr: 0.01
     momentum: 0.9
     batch_size: 32
+
+e5c:
+  n_folds: 5                             # cross-fitting for every nested model and residual (plan_e5c.md: never fit and score on the same rows)
+  seed: 0
+  n_bins: 3                              # richness tertiles for the stratified AUROC
+  e5b_epochs: [1, 50]                    # extension: E5b heads stopped early vs trained long (results/preds/e5b_pope_80.npz)
