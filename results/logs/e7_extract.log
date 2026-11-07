@@ -1,0 +1,68 @@
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 21764.36it/s]
+ens1    agp_ibd  n= 8571  123s  max |cls - E5 cache| = 1.9e-03
+ens1    hmp2     n=  197    3s  max |cls - E5 cache| = 1.6e-03
+ens1    hv       n=  564    9s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 29814.22it/s]
+ens2    agp_ibd  n= 8571  151s  max |cls - E5 cache| = 9.8e-04
+ens2    hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens2    hv       n=  564    8s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 18225.65it/s]
+ens3    agp_ibd  n= 8571  130s  max |cls - E5 cache| = 9.8e-04
+ens3    hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens3    hv       n=  564    7s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 38042.63it/s]
+ens4    agp_ibd  n= 8571  135s  max |cls - E5 cache| = 1.9e-03
+ens4    hmp2     n=  197    4s  max |cls - E5 cache| = 1.9e-03
+ens4    hv       n=  564   10s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 45842.14it/s]
+ens5    agp_ibd  n= 8571  133s  max |cls - E5 cache| = 1.9e-03
+ens5    hmp2     n=  197    2s  max |cls - E5 cache| = 9.8e-04
+ens5    hv       n=  564    8s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 44568.15it/s]
+ens6    agp_ibd  n= 8571  137s  max |cls - E5 cache| = 1.9e-03
+ens6    hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens6    hv       n=  564    8s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 28635.43it/s]
+ens7    agp_ibd  n= 8571  135s  max |cls - E5 cache| = 1.5e-03
+ens7    hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens7    hv       n=  564    7s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 39651.12it/s]
+ens8    agp_ibd  n= 8571  126s  max |cls - E5 cache| = 1.9e-03
+ens8    hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens8    hv       n=  564    8s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 34585.15it/s]
+ens9    agp_ibd  n= 8571  133s  max |cls - E5 cache| = 1.9e-03
+ens9    hmp2     n=  197    3s  max |cls - E5 cache| = 1.0e-03
+ens9    hv       n=  564    7s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/91 [00:00<?, ?it/s]Loading weights: 100%|██████████| 91/91 [00:00<00:00, 38710.11it/s]
+ens10   agp_ibd  n= 8571  144s  max |cls - E5 cache| = 9.8e-04
+ens10   hmp2     n=  197    3s  max |cls - E5 cache| = 9.8e-04
+ens10   hv       n=  564    9s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/87 [00:00<?, ?it/s]Loading weights: 100%|██████████| 87/87 [00:00<00:00, 21804.87it/s]
+[transformers] [1mElectraModel LOAD REPORT[0m from: /Users/nonthapatsriboonruang/microbiome-rank-mi/data/raw/pretrainedmodels/pretrainedmodels/5head5layer_epoch120_disc
+Key                                               | Status     |  | 
+--------------------------------------------------+------------+--+-
+discriminator_predictions.dense_prediction.weight | UNEXPECTED |  | 
+discriminator_predictions.dense.bias              | UNEXPECTED |  | 
+discriminator_predictions.dense_prediction.bias   | UNEXPECTED |  | 
+discriminator_predictions.dense.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+pre120  agp_ibd  n= 8571  155s  max |cls - E5 cache| = 9.8e-04
+pre120  hmp2     n=  197    4s  max |cls - E5 cache| = 9.8e-04
+pre120  hv       n=  564    9s  max |cls - E5 cache| = 9.8e-04
+Loading weights:   0%|          | 0/87 [00:00<?, ?it/s]Loading weights: 100%|██████████| 87/87 [00:00<00:00, 38496.09it/s]
+[transformers] [1mElectraModel LOAD REPORT[0m from: /Users/nonthapatsriboonruang/microbiome-rank-mi/data/raw/pretrainedmodels/pretrainedmodels/5head5layer_epoch0_disc
+Key                                               | Status     |  | 
+--------------------------------------------------+------------+--+-
+discriminator_predictions.dense_prediction.weight | UNEXPECTED |  | 
+discriminator_predictions.dense.bias              | UNEXPECTED |  | 
+discriminator_predictions.dense_prediction.bias   | UNEXPECTED |  | 
+discriminator_predictions.dense.weight            | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+pre0    agp_ibd  n= 8571  193s  max |cls - E5 cache| = 9.8e-04
+pre0    hmp2     n=  197    4s  max |cls - E5 cache| = 9.8e-04
+pre0    hv       n=  564   10s  max |cls - E5 cache| = 9.8e-04

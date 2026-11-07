@@ -1,0 +1,6 @@
+cls: done
+mean: done
+abund: done
+abund_shuffled: done
+10140 rows -> /Users/nonthapatsriboonruang/microbiome-rank-mi/results/e7.csv
+python src/e7_abundance_pool.py --heads  1713.04s user 77.92s system 264% cpu 11:17.63 total
