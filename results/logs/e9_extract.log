@@ -1,0 +1,11 @@
+/Users/nonthapatsriboonruang/microbiome-rank-mi/.venv/lib/python3.13/site-packages/torch/nn/modules/transformer.py:533: UserWarning: The PyTorch API of nested tensors is in prototype stage and will change in the near future. We recommend specifying layout=torch.jagged when constructing a nested tensor, as this layout receives active development, has better operator coverage, and works with torch.compile. (Triggered internally at /Users/runner/work/pytorch/pytorch/aten/src/ATen/NestedTensorImpl.cpp:181.)
+  output = torch._nested_tensor_from_mask(
+pre  agp_ibd  (8571, 256) 646s
+pre  hmp2     (197, 256) 5s
+pre  hv       (564, 256) 92s
+rand agp_ibd  (8571, 256) 683s
+rand hmp2     (197, 256) 5s
+rand hv       (564, 256) 76s
+bag  agp_ibd  (8571, 256) 4s
+bag  hmp2     (197, 256) 0s
+bag  hv       (564, 256) 0s
