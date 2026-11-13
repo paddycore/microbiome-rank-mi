@@ -19,7 +19,39 @@ All cross-study numbers are AUROC for IBD, trained on AGP-IBD (n = 8,571; 5% IBD
 9. **A second model replicates in part (E9).** With Micro16S (phylogenetic 16S embeddings, abundance as a number), Halfvarson again peaks after 2–5 epochs and then falls, and pretraining changes little. On HMP2 the early heads fall below chance (0.44 pretrained, 0.30 random init), and richness does not explain this.
 10. **Transfer tracks how well the disease directions align (E10, exploratory).** In each of 159 feature spaces, the class-mean difference (IBD minus control) learned on AGP, used directly as a classifier, reaches median AUROC 0.700 / 0.746 for Pope's fine-tuned models, against 0.552 / 0.486 for logistic regression at C = 1. Across spaces, its AUROC correlates with the cosine between the AGP direction and the test cohort's own direction (Spearman ρ 0.78 HMP2, 0.74 Halfvarson). In Micro16S the two directions point opposite ways on HMP2 (cos −0.44 to −0.68), matching its below-chance heads. Caveats: the test direction uses test labels (a diagnostic, not a model-selection rule), part of the correlation is expected by construction, the spaces come from a few related models, and 87% (HMP2) and 94% (Halfvarson) of single-space cosines fall inside the 95% range of a label-shuffle null.
 
-![Figure 1](figures/fig1_encoding_comparison.png)
+## Figures
+
+**Training the head longer helps in-domain but hurts transfer (E5b).** Pope's head recipe on frozen features. In-domain AUROC (green) rises with training while HMP2 (blue) falls below chance. An untrained encoder (D) shows the same rise-then-fall, with a later peak.
+
+![E5b: AUROC against epochs of head training](figures/fig_e5b_epochs.png)
+
+**Stronger regularisation, better transfer (E5b).** Logistic regression on the same features. On Pope's bodies (A, B), cross-study AUROC is highest at the strongest penalty and falls below chance as C grows, while in-domain AUROC barely moves.
+
+![E5b: AUROC against logistic regression C](figures/fig_e5b_lr.png)
+
+**Disease-direction alignment tracks transfer (E10).** Each dot is one feature space. With the class-mean-difference classifier (top), AUROC rises with the cosine between the AGP and test-cohort disease directions, and Micro16S on HMP2 (green, left) points the opposite way. With weakly regularised logistic regression (bottom) the relation disappears.
+
+![E10: alignment against cross-cohort AUROC](figures/fig_e10_alignment.png)
+
+**Token order is not used; token budget cuts both ways (E4).** A: shuffling or reversing the order at test time does not lower AUROC. B: keeping only the K most abundant taxa helps HMP2 and hurts Halfvarson; K random taxa (dashed) are worse on HMP2.
+
+![E4: token order and token budget](figures/fig_e4_order_budget.png)
+
+**The encoder knows the cohort, even untrained (E5).** A: cohort identity is decodable from every layer, as well in an untrained encoder. C: a fresh linear head on these features transfers poorly. D: read depth and taxa count can be read back almost fully.
+
+![E5: linear probes by layer](figures/fig_e5_probes.png)
+
+**Scores fall with richness (E5c).** P(IBD) against richness in both test cohorts, for Pope's ensemble and for a random forest (Spearman ρ −0.48 to −0.76).
+
+![E5c: P(IBD) against richness](figures/fig_e5c_scores.png)
+
+**A second model replicates in part (E9).** Micro16S heads on Halfvarson peak early and then fall, as with Pope's model (D); on HMP2 they start below chance.
+
+![E9: Micro16S AUROC against epochs](figures/fig_e9_micro16s_epochs.png)
+
+**Encoding comparison (Phase 0).** Random forest with `class_weight = balanced`, five abundance encodings, on the two cross-study cohorts and two in-domain splits (the unweighted run is `fig1b_encoding_comparison_unweighted.png`).
+
+![Phase 0: encoding comparison](figures/fig1_encoding_comparison.png)
 
 ## Experiments
 
